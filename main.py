@@ -246,7 +246,7 @@ VD: /chuyentien 987654321 10000""")
 
 @bot.message_handler(commands=["ctien"])
 def set_balance(msg):
-  if msg.from_user.id == 6337933296:
+  if msg.from_user.id == 6068241115:
     bot.reply_to(msg, """
 🔭Nhập user ID của thành viên🔨
         """)
