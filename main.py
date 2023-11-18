@@ -1233,16 +1233,16 @@ def show_game_options(msg):
 # Hàm lệnh nạp tiền
 def deposit_info(msg):
   user_id = msg.from_user.id
-  momo_account = "0345550985"
+  momo_account = "xxxxxxx"
   username = msg.from_user.username or msg.from_user.first_name
 
-  photo_link = "https://scontent.fdad1-3.fna.fbcdn.net/v/t39.30808-6/368953112_304417105585877_8104665371433145272_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=730e14&_nc_ohc=9tNmHpvwO7UAX97Ml6f&_nc_ht=scontent.fdad1-3.fna&oh=00_AfDCHSKEY4xF2TL3e4YhEjvP0kh4uVR_4cEPa_GyN5hzXA&oe=64E49255"  # Replace with the actual image link
+  photo_link = " "  # Replace with the actual image link
 
   # Creating the caption
   caption = f"""
 🏧<b>Phương Thức Nạp Bank</b>🏧
 💰<b>MB BANK _ MOMO</b>💰
-🔊Tài Khoản: <code>0345550985</code>🔚
+🔊Tài Khoản: <code>xxxxxx</code>🔚
 🔊Nội Dung: <code>naptien_{msg.from_user.id}</code>🔚
 🔊<b>Min Nạp: 10.000k Min Rút: 100.000k</b>
 🔊<b>Min Nạp: 10.000 - 3.000.000</b>🔚
