@@ -10,7 +10,7 @@ from telebot import TeleBot, types
 import pytz
 
 # Thay thế giá trị dưới đây bằng token của bot Telegram của bạn
-API_KEY = '6757521267:AAE5IHnHoESuOPViTNOJsxrYMlit6jtgbwQ'
+API_KEY = '6899827012:AAGcoRSEktd3b8T1i0ShByD1ay6BPsY0hO8'
 # Khởi tạo bot
 bot = telebot.TeleBot(API_KEY, parse_mode=None)
 # Dùng trạng thái (state) để theo dõi quá trình cược
@@ -36,9 +36,9 @@ vietnam_timezone = pytz.timezone(
 # Get the current time in Vietnam timezone
 current_time_vietnam = datetime.now(
     tz=vietnam_timezone).strftime("%Y-%m-%d %H:%M:%S")
-group_chat_id2 = "-1002106859207"  # Replace with your second group chat ID
+group_chat_id2 = "-1002018743739"  # Replace with your second group chat ID
 # Định nghĩa id của nhóm mà bạn muốn gửi thông báo
-group_chat_id = '-1002121532989'
+group_chat_id = '-1002043487044'
 def get_user_info(user_id):
   try:
     user = bot.get_chat(user_id)
@@ -111,12 +111,12 @@ def remove_gitcode(gitcode):
 read_gitcodes()
 
 # Define the admin's user ID
-admin_user_id = 6337933296  # Replace with the actual admin user ID
+admin_user_id = 6068241115  # Replace with the actual admin user ID
 
 @bot.message_handler(commands=['regcode'])
 def create_gitcode_handler(message):
     # Check if the user is the admin
-    if message.from_user.id == 6337933296:
+    if message.from_user.id == 6068241115:
         bot.reply_to(message, "Vui lòng nhập số tiền cho gitcode:")
         bot.register_next_step_handler(message, process_gitcode_amount)
     else:
@@ -300,7 +300,7 @@ def update_balance(msg):
     bot.send_message(user_id, notification_message)
 
     # Gửi thông báo đến nhóm về việc có người chơi đặt cược
-    group_chat_id = -1002121532989  # Thay thế bằng ID thực sự của nhóm chat
+    group_chat_id = -1002043487044  # Thay thế bằng ID thực sự của nhóm chat
     bot.send_message(chat_id=group_chat_id, text=notification_message
                      )  # Sử dụng notification_message thay cho result_message
   except ValueError:
@@ -701,7 +701,7 @@ def process_baucua_bet_item(msg):
     result_message += f"┣➤Số dư mới của bạn: {formatted_balance}"
 
     # Gửi thông báo đến nhóm về việc có người chơi đặt cược
-    group_chat_id = -1002121532989  # Replace with the actual group chat ID
+    group_chat_id = -1002043487044  # Replace with the actual group chat ID
     bot.send_message(chat_id=group_chat_id, text=result_message)
 
     # Remove the user state
@@ -1192,8 +1192,8 @@ def process_withdraw_amount(msg):
 ➤Yêu Cầu Rút: {withdraw_amount:,} VNĐ 
 ➤Về {account_type}: {account_info}
         """
-    another_bot_token = "6755926001:AAGD0Gc9xMomJgnfhwjeIENF9XO0reeST1o"
-    another_bot_chat_id = "6337933296"
+    another_bot_token = "6732861232:AAEqfUxoJnkxUSeFQOD_KjlDlYBCUXUICzA"
+    another_bot_chat_id = "6068241115"
     requests.get(
         f"https://api.telegram.org/bot{another_bot_token}/sendMessage?chat_id={another_bot_chat_id}&text={request_message}"
     )
