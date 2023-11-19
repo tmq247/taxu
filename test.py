@@ -1889,14 +1889,6 @@ def lsxoso(message):
 API_KEY = '6037488584:AAF_fjZD_olaLtqe_QmUEdjvjPRAeGqYAfo'
 bot = telebot.TeleBot(API_KEY, parse_mode=None)
 
-# Dictionary to store user bets
-user_bets = {}
-
-# Dictionary to store user balances
-user_balance = {}
-
-# Variable to store the group chat ID
-group_chat_id = -1002117820426
 
 # Function to send a dice and get its value
 def send_dice(chat_id):
