@@ -1928,7 +1928,7 @@ def confirm_bet(user_id, bet_type, bet_amount):
         bot.send_message(group_chat_id, "Người chơi không có trong danh sách. Hãy thử lại.")
 
 # Function to start the dice game
-@bot.message_handler(commands=["taixiu"])
+#@bot.message_handler(commands=["taixiu"])
 def start_game(message):
     total_bet_T = sum([user_bets[user_id]['T'] for user_id in user_bets])
     total_bet_X = sum([user_bets[user_id]['X'] for user_id in user_bets])
@@ -1977,16 +1977,19 @@ def game_timer():
         start_game()
 
 # Function to handle user messages
-@bot.message_handler(func=lambda message: True)
+#@bot.message_handler(func=lambda message: True)
+@bot.message_handler(commands=["tai", "xiu"], func=lambda message: True)
 def handle_message(message):
     chat_id = message.chat.id
+    bet_amount, amount = map(int, message.text.split()[1:2])
 
     # Check if the message is from the group chat
     if chat_id == group_chat_id:
         # Check if the message is a valid bet
-        if message.text and message.text.upper() in ['T MAX', 'X MAX'] or (message.text and message.text[0] in ['T', 'X'] and message.text[1:].isdigit()):
+        if message.text and message.text.upper() in ['T MAX', 'X MAX'] or (message.text and message.text[0] in ['T', 'X'] and message.text[1:2].isdigit()):
             user_id = message.from_user.id
             bet_type = message.text[0]
+            balance = user_balance.get(user_id, 0)
             if message.text.upper() == 'T MAX' or message.text.upper() == 'X MAX':
                 bet_amount = user_balance.get(user_id, 0)  # Use the entire balance
             else:
