@@ -118,8 +118,8 @@ def handle_message(message):
             #bet_type = message.text[0]
             #if bet_amount = 'all' or bet_amount = 'all':
                 #bet_amount = user_balance.get(user_id, 0)  # Use the entire balance
-            else:
-                bet_amount = int(message.text[2:])
+            #else:
+                #bet_amount = int(message.text[2:])
 
             # Confirm the bet and check user balance
             confirm_bet(user_id, bet_type, bet_amount)
