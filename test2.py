@@ -112,7 +112,7 @@ def handle_message(message):
         if message.text and message.text.upper() in ['/t all', '/x all'] or (message.text and message.text[0] in ['/t', '/x'] and message.text[2:].isdigit()):
             user_id = message.from_user.id
             bet_type = message.text[0]
-            if message.text.upper() == 'T MAX' or message.text.upper() == 'X MAX':
+            if message.text.upper() == '/t all' or message.text.upper() == '/x all':
                 bet_amount = user_balance.get(user_id, 0)  # Use the entire balance
             else:
                 bet_amount = int(message.text[2:])
