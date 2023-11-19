@@ -1928,7 +1928,8 @@ def confirm_bet(user_id, bet_type, bet_amount):
         bot.send_message(group_chat_id, "Người chơi không có trong danh sách. Hãy thử lại.")
 
 # Function to start the dice game
-def start_game():
+@bot.message_handler(commands=["taixiu"])
+def start_game(message):
     total_bet_T = sum([user_bets[user_id]['T'] for user_id in user_bets])
     total_bet_X = sum([user_bets[user_id]['X'] for user_id in user_bets])
 
