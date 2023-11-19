@@ -6,7 +6,7 @@ import time
 import os
 from multiprocessing import Process
 
-API_KEY = '6732861232:AAEqfUxoJnkxUSeFQOD_KjlDlYBCUXUICzA'
+API_KEY = '6037488584:AAEAGNyS8r9YN67buYvXhU8evTV61tV1dgY'
 bot = telebot.TeleBot(API_KEY, parse_mode=None)
 
 # Dictionary to store user bets
