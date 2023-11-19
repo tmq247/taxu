@@ -122,7 +122,7 @@ def handle_message(message):
             # Confirm the bet and check user balance
             confirm_bet(user_id, bet_type, bet_amount)
 
-        else:
+        except Exception as e:
             bot.send_message(chat_id, "Lệnh không hợp lệ. Vui lòng tuân thủ theo quy tắc cược.")
 
 # Load user balances from the file
