@@ -5,7 +5,7 @@ import threading
 import time
 import os
 
-API_KEY = '6684750508:AAFkac7sPGwKuqWVev_LGVqg-vUnwdk-SJs'
+API_KEY = '6037488584:AAF_fjZD_olaLtqe_QmUEdjvjPRAeGqYAfo'
 bot = telebot.TeleBot(API_KEY, parse_mode=None)
 
 # Dictionary to store user bets
@@ -15,7 +15,7 @@ user_bets = {}
 user_balance = {}
 
 # Variable to store the group chat ID
-group_chat_id = -1002117341398
+group_chat_id = -1002043487044
 
 # Function to send a dice and get its value
 def send_dice(chat_id):
