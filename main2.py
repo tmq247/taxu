@@ -1,3 +1,5 @@
+import asyncio
+import re
 import telebot
 import requests
 import random
@@ -5,6 +7,18 @@ import threading
 import time
 import os
 from multiprocessing import Process
+from pyrogram import filters
+from pyrogram.types import (
+    CallbackQuery,
+    ChatMemberUpdated,
+    ChatPermissions,
+    ChatPrivileges,
+    Message,
+)
+from main import (
+    calculate_tai_xiu,
+    bet_amount,
+)
 
 API_KEY = '6037488584:AAF_fjZD_olaLtqe_QmUEdjvjPRAeGqYAfo'
 bot = telebot.TeleBot(API_KEY, parse_mode=None)
