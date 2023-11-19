@@ -57,7 +57,7 @@ def confirm_bet(user_id, bet_type, bet_amount):
         bot.send_message(group_chat_id, "Không đủ số dư để đặt cược. Vui lòng kiểm tra lại số dư của bạn.")
 
 # Function to start the dice game
-@bot.message_handler(commands=['taixiu'])
+#@bot.message_handler(commands=['taixiu'])
 def start_game():
     total_bet_T = sum([user_bets[user_id]['T'] for user_id in user_bets])
     total_bet_X = sum([user_bets[user_id]['X'] for user_id in user_bets])
