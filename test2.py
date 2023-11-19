@@ -111,10 +111,10 @@ def handle_message(message):
         try:
             bet_type, bet_amount = map(int, message.text.split()[1:2])
         # Check if the message is a valid bet
-        if message.commands and message.text.upper() in ['T all', 'X all'] or (message.text and message.text[0] in ['T', 'X'] and message.text[2:].isdigit()):
+        #if message.text and message.text.upper() in ['T all', 'X all'] or (message.text and message.text[0] in ['T', 'X'] and message.text[2:].isdigit()):
             user_id = message.from_user.id
             #bet_type = message.text[0]
-            if message.text.upper() == 'T all' or message.text.upper() == 'X all':
+            if bet_amount == 'all' or bet_amount == 'all':
                 bet_amount = user_balance.get(user_id, 0)  # Use the entire balance
             else:
                 bet_amount = int(message.text[2:])
