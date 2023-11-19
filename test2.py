@@ -102,17 +102,19 @@ def game_timer():
         start_game()
 
 # Function to handle user messages
-@bot.message_handler(func=lambda message: True)
+@bot.message_handler(commands=['t', 'x'] and func=lambda message: True)
 def handle_message(message):
     chat_id = message.chat.id
 
     # Check if the message is from the group chat
     if chat_id == group_chat_id:
+        try:
+            bet_type, bet_amount = map(int, message.text.split()[1:2])
         # Check if the message is a valid bet
-        if message.text and message.text.upper() in ['/t all', '/x all'] or (message.text and message.text[0] in ['/t', '/x'] and message.text[2:].isdigit()):
+        if message.commands and message.text.upper() in ['T all', 'X all'] or (message.text and message.text[0] in ['T', 'X'] and message.text[2:].isdigit()):
             user_id = message.from_user.id
-            bet_type = message.text[0]
-            if message.text.upper() == '/t all' or message.text.upper() == '/x all':
+            #bet_type = message.text[0]
+            if message.text.upper() == 'T all' or message.text.upper() == 'X all':
                 bet_amount = user_balance.get(user_id, 0)  # Use the entire balance
             else:
                 bet_amount = int(message.text[2:])
