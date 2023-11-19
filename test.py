@@ -16,7 +16,7 @@ API_KEY = '6899827012:AAGcoRSEktd3b8T1i0ShByD1ay6BPsY0hO8'
 # Khởi tạo bot
 bot = telebot.TeleBot(API_KEY, parse_mode=None)
 # Dùng trạng thái (state) để theo dõi quá trình cược
-user_state = {}
+user_state = {state}
 # Dùng từ điển để lưu số dư của người dùng
 user_balance = {}
 # Tạo từ điển lưu lịch sử cược và lịch sử rút tiền
@@ -31,7 +31,7 @@ user_game_state = {}
 # Dictionary to store user balances (user_id: balance)
 user_balances = {}
 # Dictionary to store user bets
-user_bets = {}  # {user_id: {"bet_type": "", "amount": 0, "chosen_number": ""}}
+user_bets = {user_id: {"bet_type": "", "amount": 0, "chosen_number": ""}}
 # Inside your message handler function
 vietnam_timezone = pytz.timezone(
     'Asia/Ho_Chi_Minh')  # Define the Vietnam timezone
