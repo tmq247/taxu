@@ -1943,9 +1943,11 @@ def start_game():
 def game_timer(message):
     while True:
         bot.send_message(group_chat_id, "Bắt đầu cược! Có 120s để đặt cược.")
+        start_game()
         time.sleep(30)  # Wait for 120 seconds
 
         bot.send_message(group_chat_id, "Hết thời gian cược. Kết quả sẽ được công bố ngay sau đây.")
+        start_game()
         bot.send_message(group_chat_id, "💥 Bắt đầu tung XX 💥")
         time.sleep(3)  # Simulating dice rolling
 
@@ -1976,7 +1978,7 @@ def game_timer(message):
 
     bot.send_message(group_chat_id, f"Tổng thắng: {total_win}đ")
     bot.send_message(group_chat_id, f"Tổng thua: {total_bet_T + total_bet_X}đ")
-        start_game()
+        
 
 # Function to handle user messages
 @bot.message_handler(func=lambda message: True)
