@@ -102,7 +102,7 @@ def game_timer():
         start_game()
 
 # Function to handle user messages
-@bot.message_handler(commands=['t', 'x'] and func=lambda message: True)
+@bot.message_handler(commands=['T', 'X'], func=lambda message: True)
 def handle_message(message):
     chat_id = message.chat.id
 
