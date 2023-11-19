@@ -1886,6 +1886,19 @@ def lsxoso(message):
     else:
         bot.send_message(user_id, "Bạn chưa có lịch sử cá cược.")
 
+API_KEY = '6037488584:AAF_fjZD_olaLtqe_QmUEdjvjPRAeGqYAfo'
+bot = telebot.TeleBot(API_KEY, parse_mode=None)
+
+# Dictionary to store user bets
+user_bets = {}
+
+# Dictionary to store user balances
+user_balance = {}
+
+# Variable to store the group chat ID
+group_chat_id = -1002117820426
+
+# Function to send a dice and get its value
 def send_dice(chat_id):
     response = requests.get(f'https://api.telegram.org/bot{API_KEY}/sendDice?chat_id={chat_id}')
     if response.status_code == 200:
@@ -1977,7 +1990,7 @@ def handle_message(message):
     # Check if the message is from the group chat
     if chat_id == group_chat_id:
         # Check if the message is a valid bet
-        if message.text and message.text.upper() in ['T MAX', 'X MAX'] or (message.text and message.text[0] in ['T', 'X'] and message.text[1:].isdigit()):
+        if message.text and message.text.upper() in ['T MAX', 'X MAX'] or (message.text and message.text[0] in ['T', 'X'] and message.text[2:].isdigit()):
             user_id = message.from_user.id
             bet_type = message.text[0]
             if message.text.upper() == 'T MAX' or message.text.upper() == 'X MAX':
