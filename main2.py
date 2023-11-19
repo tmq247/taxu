@@ -16,7 +16,7 @@ user_bets = {}
 user_balance = {}
 
 # Variable to store the group chat ID
-group_chat_id = -1002043487044
+group_chat_id = -1002117820426
 
 # Winning coefficient
 winning_coefficient = 1.98
