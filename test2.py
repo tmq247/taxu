@@ -109,7 +109,7 @@ def handle_message(message):
     # Check if the message is from the group chat
     if chat_id == group_chat_id:
         # Check if the message is a valid bet
-        if message.text and message.text.upper() in ['T MAX', 'X MAX'] or (message.text and message.text[0] in ['T', 'X'] and message.text[2:].isdigit()):
+        if message.text and message.text.upper() in ['/t all', '/x all'] or (message.text and message.text[0] in ['/t', '/x'] and message.text[2:].isdigit()):
             user_id = message.from_user.id
             bet_type = message.text[0]
             if message.text.upper() == 'T MAX' or message.text.upper() == 'X MAX':
