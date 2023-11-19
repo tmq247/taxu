@@ -108,7 +108,7 @@ def handle_message(message):
 
     # Check if the message is from the group chat
     if chat_id == group_chat_id:
-        if message.command[2:] == "all":
+        if message.commands[2:] == "all":
             bet_amount = user_balance.get(user_id, 0)  # Use the entire balance
         try:
             bet_type, bet_amount = map(int, message.text.split()[1:2])
