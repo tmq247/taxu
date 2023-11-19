@@ -6,7 +6,7 @@ import time
 import os
 from multiprocessing import Process
 
-API_KEY = '6684750508:AAFkac7sPGwKuqWVev_LGVqg-vUnwdk-SJs'
+API_KEY = '6732861232:AAEqfUxoJnkxUSeFQOD_KjlDlYBCUXUICzA'
 bot = telebot.TeleBot(API_KEY, parse_mode=None)
 
 # Dictionary to store user bets
@@ -16,7 +16,7 @@ user_bets = {}
 user_balance = {}
 
 # Variable to store the group chat ID
-group_chat_id = -1002117341398
+group_chat_id = -1002043487044
 
 # Winning coefficient
 winning_coefficient = 1.98
