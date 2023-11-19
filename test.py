@@ -1990,14 +1990,14 @@ def handle_message(message):
     # Check if the message is from the group chat
     if chat_id == group_chat_id:
         # Check if the message is a valid bet
-        if message.text and message.text.upper() in ['T MAX', 'X MAX'] or (message.text and message.text[0] in ['T', 'X'] and message.text[2:].isdigit()):
+        if message.text and message.text.upper() in ['T MAX', 'X MAX'] or (message.text and message.text[0] in ['T', 'X'] and message.text[1:].isdigit()):
             user_id = message.from_user.id
             bet_type = message.text[0]
             balance = user_balance.get(user_id, 0)
             if message.text.upper() == 'T MAX' or message.text.upper() == 'X MAX':
                 bet_amount = user_balance.get(user_id, 0)  # Use the entire balance
             else:
-                bet_amount = int(message.text[1:])
+                bet_amount = int(message.text[2:])
 
             # Confirm the bet and check user balance
             confirm_bet(user_id, bet_type, bet_amount)
