@@ -1939,7 +1939,7 @@ def start_game():
     
 
 # Function to handle the game timing
-@bot.message_handler(commands=["taixiu"])
+@bot.message_handler(commands=['taixiu'])
 def game_timer(message):
     while True:
         bot.send_message(group_chat_id, "Bắt đầu cược! Có 120s để đặt cược.")
@@ -1978,7 +1978,7 @@ def game_timer(message):
 
     bot.send_message(group_chat_id, f"Tổng thắng: {total_win}đ")
     bot.send_message(group_chat_id, f"Tổng thua: {total_bet_T + total_bet_X}đ")
-        
+    return    
 
 # Function to handle user messages
 @bot.message_handler(func=lambda message: True)
@@ -1990,7 +1990,7 @@ def handle_message(message):
     # Check if the message is from the group chat
     if chat_id == group_chat_id:
         # Check if the message is a valid bet
-        if message.text and message.text.upper() in ['T MAX', 'X MAX'] or (message.text and message.text[0] in ['T', 'X'] and message.text[1:].isdigit()):
+        if message.text and message.text.upper() in ['T MAX', 'X MAX'] or (message.text and message.text[0] in ['T', 'X'] and message.text[2:].isdigit()):
             user_id = message.from_user.id
             bet_type = message.text[0]
             balance = user_balance.get(user_id, 0)
