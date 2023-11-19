@@ -109,7 +109,7 @@ def handle_message(message):
     # Check if the message is from the group chat
     if chat_id == group_chat_id:
         try:
-            bet_type, bet_amount = map(int, message.text.split()[1:2])
+            bet_type, bet_amount = map(int, message.text.split()[0:2])
         # Check if the message is a valid bet
         #if message.text and message.text.upper() in ['T all', 'X all'] or (message.text and message.text[0] in ['T', 'X'] and message.text[2:].isdigit()):
             user_id = message.from_user.id
