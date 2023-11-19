@@ -16,7 +16,7 @@ API_KEY = '6899827012:AAGcoRSEktd3b8T1i0ShByD1ay6BPsY0hO8'
 # Khởi tạo bot
 bot = telebot.TeleBot(API_KEY, parse_mode=None)
 # Dùng trạng thái (state) để theo dõi quá trình cược
-user_state = {state}
+user_state = {}
 # Dùng từ điển để lưu số dư của người dùng
 user_balance = {}
 # Tạo từ điển lưu lịch sử cược và lịch sử rút tiền
