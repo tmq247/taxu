@@ -1366,16 +1366,16 @@ def show_game_options(msg):
 def game_callback(call):
   if call.data == "game_tai":
     user_state[call.from_user.id] = "tai"
-    show_tai_bet_amount_options(call.from_chat.id)
+    show_tai_bet_amount_options(call.from_user.id)
   elif call.data == "game_xiu":
     user_state[call.from_user.id] = "xiu"
-    show_xiu_bet_amount_options(call.from_chat.id)
+    show_xiu_bet_amount_options(call.from_user.id)
   elif call.data == "game_tai2":
     user_state[call.from_user.id] = "tai2"
-    show_tai2_bet_amount_options(call.from_chat.id)
+    show_tai2_bet_amount_options(call.from_user.id)
   elif call.data == "game_xiu2":
     user_state[call.from_user.id] = "xiu2"
-    show_xiu2_bet_amount_options(call.from_chat.id)
+    show_xiu2_bet_amount_options(call.from_user.id)
   elif call.data == "game_chan":
     user_state[call.from_user.id] = "chan"
     show_chan_bet_amount_options(call.from_user.id)
@@ -1399,7 +1399,7 @@ def game_callback(call):
     pass
 
 
-def show_tai_bet_amount_options(hat_id):
+def show_tai_bet_amount_options(chat_id):
   # Create the Reply Keyboard with bet amount options
   markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True,
                                              one_time_keyboard=True)
