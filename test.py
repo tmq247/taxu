@@ -1928,15 +1928,26 @@ def confirm_bet(user_id, bet_type, bet_amount):
         bot.send_message(group_chat_id, "Người chơi không có trong danh sách. Hãy thử lại.")
 
 # Function to start the dice game
-def start_game(message):
+def start_game():
     total_bet_T = sum([user_bets[user_id]['T'] for user_id in user_bets])
     total_bet_X = sum([user_bets[user_id]['X'] for user_id in user_bets])
 
     bot.send_message(group_chat_id, f"🔵 Tổng cược bên TÀI: {total_bet_T}đ")
     bot.send_message(group_chat_id, f"🔴 Tổng cược bên XỈU: {total_bet_X}đ")
-    bot.send_message(group_chat_id, "💥 Bắt đầu tung XX 💥")
+    
 
-    time.sleep(3)  # Simulating dice rolling
+    
+
+# Function to handle the game timing
+@bot.message_handler(commands=["taixiu"])
+def game_timer(message):
+    while True:
+        bot.send_message(group_chat_id, "Bắt đầu cược! Có 120s để đặt cược.")
+        time.sleep(30)  # Wait for 120 seconds
+
+        bot.send_message(group_chat_id, "Hết thời gian cược. Kết quả sẽ được công bố ngay sau đây.")
+        bot.send_message(group_chat_id, "💥 Bắt đầu tung XX 💥")
+        time.sleep(3)  # Simulating dice rolling
 
     result = [send_dice(group_chat_id) for _ in range(3)]
 
@@ -1965,15 +1976,6 @@ def start_game(message):
 
     bot.send_message(group_chat_id, f"Tổng thắng: {total_win}đ")
     bot.send_message(group_chat_id, f"Tổng thua: {total_bet_T + total_bet_X}đ")
-
-# Function to handle the game timing
-@bot.message_handler(commands=["taixiu"])
-def game_timer():
-    while True:
-        bot.send_message(group_chat_id, "Bắt đầu cược! Có 120s để đặt cược.")
-        time.sleep(30)  # Wait for 120 seconds
-
-        bot.send_message(group_chat_id, "Hết thời gian cược. Kết quả sẽ được công bố ngay sau đây.")
         start_game()
 
 # Function to handle user messages
