@@ -63,7 +63,7 @@ def load_balance_from_file():
 
 # Function to confirm the bet and check user balance
 def confirm_bet(user_id, bet_type, bet_amount, ten_ncuoc):
-    balance = user_balance.get(user_id, 0)
+    #balance = user_balance.get(user_id, 0)
     if bet_type == 'T':
         cua_cuoc = '🔵Tài'
     else:
@@ -73,19 +73,20 @@ def confirm_bet(user_id, bet_type, bet_amount, ten_ncuoc):
     # Check if the user_id is present in user_balance dictionary
     if user_id in user_balance:
         # Check user balance
-        if balance >= bet_amount:
+        if user_balance[user_id] >= bet_amount:
             user_bets[user_id] = {'T': 0, 'X': 0}  # Initialize the user's bets if not already present
             user_bets[user_id][bet_type] += bet_amount
-            #user_balance[user_id] -= bet_amount
-            user_balance[user_id] = balance - bet_amount
-            load_balance_from_file()
+            user_balance[user_id] -= bet_amount
+            #user_balance[user_id] = balance - bet_amount
+            
             bot.send_message(group_chat_id, f"Cược đã được chấp nhận.")
         else:
             bot.send_message(group_chat_id, "Không đủ số dư để đặt cược. Vui lòng kiểm tra lại số dư của bạn.")
     else:
         bot.send_message(group_chat_id, "Người chơi không có trong danh sách. Hãy thử lại.")
     # Load user balances from the file
-    
+    save_balance_to_file()
+    load_balance_from_file()
 
 # Function to start the dice game
 def start_game():
