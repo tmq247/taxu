@@ -28,7 +28,7 @@ user_balance = {}
 group_chat_id = -1002121532989
 
 # Winning coefficient
-winning_coefficient = 1.98
+winning_coefficient = 1.9
 
 # Function to send a dice and get its value
 def send_dice(chat_id):
@@ -112,16 +112,16 @@ def start_game():
     # Determine the winner and calculate total winnings
     total_win = 0
     for user_id in user_bets:
-        if sum(result) >= 4 and user_bets[user_id]['T'] > 0:
+        if sum(result) >= 11 and user_bets[user_id]['T'] > 0:
             total_win += user_bets[user_id]['T'] * winning_coefficient
-        elif sum(result) < 4 and user_bets[user_id]['X'] > 0:
+        elif sum(result) < 11 and user_bets[user_id]['X'] > 0:
             total_win += user_bets[user_id]['X'] * winning_coefficient
 
     # Update user balances based on the game result
     for user_id in user_bets:
-        if sum(result) >= 4 and user_bets[user_id]['T'] > 0:
+        if sum(result) >= 11 and user_bets[user_id]['T'] > 0:
             user_balance[user_id] += total_win
-        elif sum(result) < 4 and user_bets[user_id]['X'] > 0:
+        elif sum(result) < 11 and user_bets[user_id]['X'] > 0:
             user_balance[user_id] += total_win
 
     # Clear user bets
