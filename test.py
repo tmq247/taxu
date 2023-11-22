@@ -112,12 +112,12 @@ def remove_gitcode(gitcode):
 read_gitcodes()
 
 # Define the admin's user ID
-admin_user_id = 6337933296  # Replace with the actual admin user ID
+admin_user_id = 6337933296, 6630692765 # Replace with the actual admin user ID
 
 @bot.message_handler(commands=['regcode'])
 def create_gitcode_handler(message):
     # Check if the user is the admin
-    if message.from_user.id == 6337933296:
+    if message.from_user.id == 6337933296 or 6630692765:
         bot.reply_to(message, "Vui lòng nhập số tiền cho gitcode:")
         bot.register_next_step_handler(message, process_gitcode_amount)
     else:
@@ -247,7 +247,7 @@ VD: /chuyentien 987654321 10000""")
 
 @bot.message_handler(commands=["ctien"])
 def set_balance(msg):
-  if msg.from_user.id == 6337933296:
+  if msg.from_user.id == 6337933296 or 6630692765:
     bot.reply_to(msg, """
 🔭Nhập user ID của thành viên🔨
         """)
