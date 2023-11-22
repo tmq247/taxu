@@ -62,12 +62,12 @@ def load_balance_from_file():
 
 # Function to confirm the bet and check user balance
 def confirm_bet(user_id, bet_type, bet_amount):
-    
+    user_id = from_user.first_name
     if bet_type == 'T':
         cua_cuoc = '🔵Tài'
     else:
         cua_cuoc = '🔴Xỉu'
-    bot.send_message(group_chat_id, f"{user_id} đã cược {cua_cuoc} {bet_amount} điểm")
+    bot.send_message(group_chat_id, f"{from_user.first_name} đã cược {cua_cuoc} {bet_amount} điểm")
     
     # Check if the user_id is present in user_balance dictionary
     if user_id in user_balance:
