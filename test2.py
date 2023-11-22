@@ -62,11 +62,12 @@ def load_balance_from_file():
 
 # Function to confirm the bet and check user balance
 def confirm_bet(user_id, bet_type, bet_amount):
+    msg.from_user.first_name = user_id
     if bet_type == 'T':
         cua_cuoc = '🔵Tài'
     else:
         cua_cuoc = '🔴Xỉu'
-    bot.send_message(group_chat_id, f"Đã nhận cược từ {user_id}: {cua_cuoc} {bet_amount}đ")
+    bot.send_message(group_chat_id, f"{msg.from_user.first_name} đã cược {cua_cuoc} {bet_amount} điểm")
     
     # Check if the user_id is present in user_balance dictionary
     if user_id in user_balance:
@@ -77,9 +78,9 @@ def confirm_bet(user_id, bet_type, bet_amount):
             user_balance[user_id] -= bet_amount
             bot.send_message(group_chat_id, f"Cược đã được chấp nhận.")
         else:
-            bot.send_message(group_chat_id, "Không đủ số dư để đặt cược. Vui lòng kiểm tra lại số dư của bạn.")
+            bot.send_message(group_chat_id, "Không đủ điểm để đặt cược. Vui lòng kiểm tra lại số điểm của bạn.")
     else:
-        bot.send_message(group_chat_id, "Người chơi không có trong danh sách. Hãy thử lại.")
+        bot.send_message(group_chat_id, "Hãy nhắn tin cho bot @testtaixiu1bot và đặt cược lại.")
 
 # Function to start the dice game
 def start_game():
@@ -180,13 +181,9 @@ load_balance_from_file()
 def check_balance(msg):
   user_id = msg.from_user.id
   balance = user_balance.get(user_id, 0)
-  photo_link = "https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/374564260_311252494902338_4501893302206805342_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=49d041&_nc_ohc=ypCR3gJKO84AX8vBaGO&_nc_oc=AQkV2yigf-t0BVkyWvCT0B1QFbLFdXx-cDg9Lal65LdSPI_AvgJdmKKS0ZpvItzfP3rlfqLxFP3pFitVvMbCHjGI&_nc_ht=scontent.fdad1-4.fna&oh=00_AfCW5YKUPRq6IRYMDCqhbPKQYFlUoIbVsuCjDAmzsr50VA&oe=64F55781"  # Thay thế bằng đường dẫn URL của hình ảnh
   bot.send_photo(msg.chat.id,
-                 photo_link,
                  caption=f"""
-👤 <b>Tên tài khoản</b>: <code>{msg.from_user.first_name}</code>
-💳 <b>ID Tài khoản</b>: <code>{msg.from_user.id}</code>
-💰 <b>Số dư của bạn</b>: {balance:,} đ
+👤 <b>Số điểm của</b>: <code>{msg.from_user.first_name} là >💰{balance:,} điểm</code>
         """,
                  parse_mode='HTML')
   
