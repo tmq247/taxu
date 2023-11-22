@@ -15,7 +15,8 @@ API_KEY = '6757521267:AAE5IHnHoESuOPViTNOJsxrYMlit6jtgbwQ'
 bot = telebot.TeleBot(API_KEY, parse_mode=None)
 
 #luu ket qua
-#luu_cau = {}
+luu_cau = {}
+cau = {}
 
 # Dictionary to store user bets
 user_bets = {}
@@ -62,7 +63,6 @@ def load_balance_from_file():
 
 # Function to confirm the bet and check user balance
 def confirm_bet(user_id, bet_type, bet_amount, ten_ncuoc):
-    #user_id = from_user.first_name
     if bet_type == 'T':
         cua_cuoc = '🔵Tài'
     else:
@@ -78,9 +78,11 @@ def confirm_bet(user_id, bet_type, bet_amount, ten_ncuoc):
             user_balance[user_id] -= bet_amount
             bot.send_message(group_chat_id, f"Cược đã được chấp nhận.")
         else:
-            bot.send_message(group_chat_id, "Không đủ điểm để đặt cược. Vui lòng kiểm tra lại số điểm của bạn.")
+            bot.send_message(group_chat_id, "Không đủ số dư để đặt cược. Vui lòng kiểm tra lại số dư của bạn.")
     else:
-        bot.send_message(group_chat_id, "Hãy nhắn tin cho bot @testtaixiu1bot và đặt cược lại.")
+        bot.send_message(group_chat_id, "Người chơi không có trong danh sách. Hãy thử lại.")
+    # Load user balances from the file
+    load_balance_from_file()
 
 # Function to start the dice game
 def start_game():
@@ -101,9 +103,11 @@ def start_game():
 
     result = [send_dice(group_chat_id) for _ in range(3)]
     total_score = sum(result)
-    luu_cau = f"➤KẾT QUẢ XX: {' + '.join(str(x) for x in result)} = {total_score} điểm {calculate_tai_xiu(total_score)}"
-    #bot.send_message(group_chat_id, f"➤KẾT QUẢ XX: {' + '.join(str(x) for x in result)} = {total_score} điểm {calculate_tai_xiu(total_score)}")
-    bot.send_message(group_chat_id, f"{luu_cau}")
+    #kq_cau = f"➤KẾT QUẢ XX: {' + '.join(str(x) for x in result)} = {total_score} điểm {calculate_tai_xiu(total_score)}"
+    bot.send_message(group_chat_id, f"➤KẾT QUẢ XX: {' + '.join(str(x) for x in result)} = {total_score} điểm {calculate_tai_xiu(total_score)}")
+    #bot.send_message(group_chat_id, f"{kq_cau}")
+    cau = (calculate_tai_xiu(total_score))
+    ls_cau(cau, result)
 
     # Determine the winner and calculate total winnings
     total_win = 0
@@ -123,8 +127,6 @@ def start_game():
     # Clear user bets
     user_bets.clear()
 
-    #luu cau
-    #luucau()
     # Save updated balances to the file
     save_balance_to_file()
 
@@ -139,7 +141,7 @@ Tổng thua: {total_bet_T + total_bet_X}đ
 def game_timer():
     #while True:
         bot.send_message(group_chat_id, "Bắt đầu cược! Có 45s để đặt cược.")
-        time.sleep(45)  # Wait for 120 seconds
+        time.sleep(20)  # Wait for 120 seconds
 
         bot.send_message(group_chat_id, "Hết thời gian cược. Kết quả sẽ được công bố ngay sau đây.")
         start_game()
@@ -165,7 +167,7 @@ def handle_message(message,
                 bet_amount = int(message.text[3:])
 
             # Confirm the bet and check user balance
-            confirm_bet(user_id, bet_type, bet_amount)
+            confirm_bet(user_id, bet_type, bet_amount, ten_ncuoc)
             
         else:
             bot.send_message(chat_id, "Lệnh không hợp lệ. Vui lòng tuân thủ theo quy tắc cược.")
@@ -186,7 +188,7 @@ def check_balance(msg):
   bot.send_photo(msg.chat.id,
                  photo_link,
                  caption=f"""
-👤 <b>Số điểm của</b>: <code>{msg.from_user.first_name} là >💰{balance:,} điểm</code>
+👤 <b>Số điểm của</b> <code>{msg.from_user.first_name} là {balance:,} điểm 💰</code>
         """,
                  parse_mode='HTML')
   
@@ -204,20 +206,44 @@ def start_taixiu(message):
     #timer_thread = threading.Thread(target=game_timer)
     #timer_thread.start()
 
-#def luucau():
-  #with open("luucau.txt", "w") as f:
-    #for user_id, balance in user_balance.items():
-        #f.write(f"{user_id} {balance}\n")
-    #for result, total_score in luu_cau():
-        #f.write(f"➤{' + '.join(str(x) for x in result)} = {total_score} điểm {calculate_tai_xiu(total_score)}\n")
-
-#@bot.message_handler(commands=["sc"])
-#def check_cau(message):
-    #kqsoi_cau = luucau.get(result, total_score)
-    #bot.send_message(f"{kqsoi_cau}")
 
 # Adding a small delay
 #time.sleep(1)
+
+def ls_cau(cau, result):
+    total_score = sum(result)
+    cau = calculate_tai_xiu(total_score)
+    if cau not in luu_cau:
+        luu_cau[cau] = []
+    luu_cau[cau].append(cau)
+    
+    # Automatically save the history to "kiemtraxs.txt"
+    try:
+        history_text = f"{cau}\n"
+
+        # Define the encoding as 'utf-8' when opening the file
+        with open("soicau.txt", "a", encoding='utf-8') as history_file:
+            history_file.write(history_text)
+    except Exception as e:
+        # Handle any potential errors, e.g., by logging them
+        print(f"Error saving history: {str(e)}")
+
+@bot.message_handler(commands=['sc'])
+def soi_cau(message):
+    doc = open("soicau.txt")
+    
+    #print(doc.readline()[-1:-10])
+    bot.send_message(message, f"{doc.readline()[1]}")
+
+def test():
+  if os.path.exists("soicau.txt"):
+    with open("soicau.txt", "r") as f:
+      for line in f:
+        user_id, balance_str = line.strip().split()
+        balance = float(balance_str)
+        if balance.is_integer():
+          balance = int(balance)
+        user_balance[int(user_id)] = balance
 
 # Run the bot
 bot.polling()
