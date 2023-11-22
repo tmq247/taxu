@@ -10,9 +10,8 @@ from telebot import TeleBot, types
 import pytz
 import threading
 
-
 # Thay thế giá trị dưới đây bằng token của bot Telegram của bạn
-API_KEY = '6899827012:AAGcoRSEktd3b8T1i0ShByD1ay6BPsY0hO8'
+API_KEY = '6784844273:AAGdaEkuudWmwe-PsfYLFXKBzW_TF_pWIDM'
 # Khởi tạo bot
 bot = telebot.TeleBot(API_KEY, parse_mode=None)
 # Dùng trạng thái (state) để theo dõi quá trình cược
@@ -31,18 +30,16 @@ user_game_state = {}
 # Dictionary to store user balances (user_id: balance)
 user_balances = {}
 # Dictionary to store user bets
-user_bets = {} #{user_id: {"bet_type": "", "amount": 0, "chosen_number": ""}}
-# Winning coefficient
-winning_coefficient = 1.98
+user_bets = {}  # {user_id: {"bet_type": "", "amount": 0, "chosen_number": ""}}
 # Inside your message handler function
 vietnam_timezone = pytz.timezone(
     'Asia/Ho_Chi_Minh')  # Define the Vietnam timezone
 # Get the current time in Vietnam timezone
 current_time_vietnam = datetime.now(
     tz=vietnam_timezone).strftime("%Y-%m-%d %H:%M:%S")
-group_chat_id2 = "-1002018743739"  # Replace with your second group chat ID
+group_chat_id2 = "-1002121532989"  # Replace with your second group chat ID
 # Định nghĩa id của nhóm mà bạn muốn gửi thông báo
-group_chat_id = '-1002043487044'
+group_chat_id = '-1002121532989'
 def get_user_info(user_id):
   try:
     user = bot.get_chat(user_id)
@@ -115,12 +112,12 @@ def remove_gitcode(gitcode):
 read_gitcodes()
 
 # Define the admin's user ID
-admin_user_id = 6068241115  # Replace with the actual admin user ID
+admin_user_id = 6337933296  # Replace with the actual admin user ID
 
 @bot.message_handler(commands=['regcode'])
 def create_gitcode_handler(message):
     # Check if the user is the admin
-    if message.from_user.id == 6068241115:
+    if message.from_user.id == 6337933296:
         bot.reply_to(message, "Vui lòng nhập số tiền cho gitcode:")
         bot.register_next_step_handler(message, process_gitcode_amount)
     else:
@@ -250,7 +247,7 @@ VD: /chuyentien 987654321 10000""")
 
 @bot.message_handler(commands=["ctien"])
 def set_balance(msg):
-  if msg.from_user.id == 6068241115:
+  if msg.from_user.id == 6337933296:
     bot.reply_to(msg, """
 🔭Nhập user ID của thành viên🔨
         """)
@@ -304,7 +301,7 @@ def update_balance(msg):
     bot.send_message(user_id, notification_message)
 
     # Gửi thông báo đến nhóm về việc có người chơi đặt cược
-    group_chat_id = -1002043487044  # Thay thế bằng ID thực sự của nhóm chat
+    group_chat_id = -1002121532989  # Thay thế bằng ID thực sự của nhóm chat
     bot.send_message(chat_id=group_chat_id, text=notification_message
                      )  # Sử dụng notification_message thay cho result_message
   except ValueError:
@@ -705,7 +702,7 @@ def process_baucua_bet_item(msg):
     result_message += f"┣➤Số dư mới của bạn: {formatted_balance}"
 
     # Gửi thông báo đến nhóm về việc có người chơi đặt cược
-    group_chat_id = -1002043487044  # Replace with the actual group chat ID
+    group_chat_id = -1002121532989  # Replace with the actual group chat ID
     bot.send_message(chat_id=group_chat_id, text=result_message)
 
     # Remove the user state
@@ -988,7 +985,9 @@ def show_main_menu(msg):
 
 # Hàm xử lý khi người dùng chọn nút
 @bot.message_handler(func=lambda message: message.text == "👤 Tài Khoản")
+@bot.message_handler(commands=["diem"])
 def handle_check_balance_button(msg):
+  load_balance_from_file()
   check_balance(msg)
 
 @bot.message_handler(func=lambda message: message.text == "💸 Rút Tiền")
@@ -1196,8 +1195,8 @@ def process_withdraw_amount(msg):
 ➤Yêu Cầu Rút: {withdraw_amount:,} VNĐ 
 ➤Về {account_type}: {account_info}
         """
-    another_bot_token = "6732861232:AAEqfUxoJnkxUSeFQOD_KjlDlYBCUXUICzA"
-    another_bot_chat_id = "6068241115"
+    another_bot_token = "6755926001:AAGD0Gc9xMomJgnfhwjeIENF9XO0reeST1o"
+    another_bot_chat_id = "6337933296"
     requests.get(
         f"https://api.telegram.org/bot{another_bot_token}/sendMessage?chat_id={another_bot_chat_id}&text={request_message}"
     )
@@ -1237,16 +1236,16 @@ def show_game_options(msg):
 # Hàm lệnh nạp tiền
 def deposit_info(msg):
   user_id = msg.from_user.id
-  momo_account = "xxxxxxx"
+  momo_account = "0345550985"
   username = msg.from_user.username or msg.from_user.first_name
 
-  photo_link = " "  # Replace with the actual image link
+  photo_link = "https://scontent.fdad1-3.fna.fbcdn.net/v/t39.30808-6/368953112_304417105585877_8104665371433145272_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=730e14&_nc_ohc=9tNmHpvwO7UAX97Ml6f&_nc_ht=scontent.fdad1-3.fna&oh=00_AfDCHSKEY4xF2TL3e4YhEjvP0kh4uVR_4cEPa_GyN5hzXA&oe=64E49255"  # Replace with the actual image link
 
   # Creating the caption
   caption = f"""
 🏧<b>Phương Thức Nạp Bank</b>🏧
 💰<b>MB BANK _ MOMO</b>💰
-🔊Tài Khoản: <code>xxxxxx</code>🔚
+🔊Tài Khoản: <code>0345550985</code>🔚
 🔊Nội Dung: <code>naptien_{msg.from_user.id}</code>🔚
 🔊<b>Min Nạp: 10.000k Min Rút: 100.000k</b>
 🔊<b>Min Nạp: 10.000 - 3.000.000</b>🔚
@@ -1886,122 +1885,5 @@ def lsxoso(message):
     else:
         bot.send_message(user_id, "Bạn chưa có lịch sử cá cược.")
 
-API_KEY = '6037488584:AAF_fjZD_olaLtqe_QmUEdjvjPRAeGqYAfo'
-bot = telebot.TeleBot(API_KEY, parse_mode=None)
-
-
-# Function to send a dice and get its value
-def send_dice(chat_id):
-    response = requests.get(f'https://api.telegram.org/bot{API_KEY}/sendDice?chat_id={chat_id}')
-    if response.status_code == 200:
-        data = response.json()
-        if 'result' in data and 'dice' in data['result']:
-            return data['result']['dice']['value']
-    return None
-
-# Hàm để lưu tất cả số dư vào tệp văn bản
-def save_balance_to_file():
-    with open("id.txt", "w") as f:
-        for user_id, balance in user_balance.items():
-            f.write(f"{user_id} {balance}\n")
-
-# Hàm để đọc số dư từ tệp văn bản và cập nhật vào từ điển user_balance
-def load_balance_from_file():
-    if os.path.exists("id.txt"):
-        with open("id.txt", "r") as f:
-            for line in f:
-                user_id, balance_str = line.strip().split()
-                balance = float(balance_str)
-                if balance.is_integer():
-                    balance = int(balance)
-                user_balance[int(user_id)] = balance
-
-# Function to confirm the bet and check user balance
-def confirm_bet(user_id, bet_type, bet_amount):
-    bot.send_message(group_chat_id, f"Đã nhận cược từ {user_id}: {bet_type} {bet_amount}đ")
-
-    # Check user balance
-    if user_balance.get(user_id, 0) >= bet_amount:
-        user_bets[user_id] = {'T': 0, 'X': 0}  # Initialize the user's bets if not already present
-        user_bets[user_id][bet_type] += bet_amount
-        user_balance[user_id] -= bet_amount
-        bot.send_message(group_chat_id, f"Cược đã được chấp nhận.")
-    else:
-        bot.send_message(group_chat_id, "Không đủ số dư để đặt cược. Vui lòng kiểm tra lại số dư của bạn.")
-
-# Function to start the dice game
-#@bot.message_handler(commands=['taixiu'])
-def start_game():
-    total_bet_T = sum([user_bets[user_id]['T'] for user_id in user_bets])
-    total_bet_X = sum([user_bets[user_id]['X'] for user_id in user_bets])
-
-    bot.send_message(group_chat_id, f"🔵 Tổng cược bên TÀI: {total_bet_T}đ")
-    bot.send_message(group_chat_id, f"🔴 Tổng cược bên XỈU: {total_bet_X}đ")
-    bot.send_message(group_chat_id, "💥 Bắt đầu tung XX 💥")
-
-    time.sleep(3)  # Simulating dice rolling
-
-    result = [send_dice(group_chat_id) for _ in range(3)]
-
-    bot.send_message(group_chat_id, f"KẾT QUẢ XX: {result}")
-
-    # Calculate total winnings and losses
-    total_win = total_bet_T if sum(result) >= 4 else total_bet_X
-    total_loss = total_bet_X if sum(result) >= 4 else total_bet_T
-
-    bot.send_message(group_chat_id, f"Tổng thắng: {total_win}đ")
-    bot.send_message(group_chat_id, f"Tổng thua: {total_loss}đ")
-
-    # Update user balances based on the game result
-    for user_id in user_bets:
-        if sum(result) >= 4 and user_bets[user_id]['T'] > 0:
-            user_balance[user_id] += user_bets[user_id]['T']
-        elif sum(result) < 4 and user_bets[user_id]['X'] > 0:
-            user_balance[user_id] += user_bets[user_id]['X']
-
-    # Clear user bets
-    user_bets.clear()
-
-    # Save updated balances to the file
-    save_balance_to_file()
-
-# Function to handle the game timing
-def game_timer():
-    while True:
-        bot.send_message(group_chat_id, "Bắt đầu cược! Có 120s để đặt cược.")
-        time.sleep(120)  # Wait for 120 seconds
-
-        bot.send_message(group_chat_id, "Hết thời gian cược. Kết quả sẽ được công bố ngay sau đây.")
-        start_game()
-
-# Function to handle user messages
-@bot.message_handler(func=lambda message: True)
-def handle_message(message):
-    chat_id = message.chat.id
-
-    # Check if the message is from the group chat
-    if chat_id == group_chat_id:
-        # Check if the message is a valid bet
-        if message.text and message.text.upper() in ['T MAX', 'X MAX'] or (message.text and message.text[0] in ['T', 'X'] and message.text[2:].isdigit()):
-            user_id = message.from_user.id
-            bet_type = message.text[0]
-            if message.text.upper() == 'T MAX' or message.text.upper() == 'X MAX':
-                bet_amount = user_balance.get(user_id, 0)  # Use the entire balance
-            else:
-                bet_amount = int(message.text[2:])
-
-            # Confirm the bet and check user balance
-            confirm_bet(user_id, bet_type, bet_amount)
-
-        else:
-            bot.send_message(chat_id, "Lệnh không hợp lệ. Vui lòng tuân thủ theo quy tắc cược.")
-
-# Load user balances from the file
-load_balance_from_file()
-
-# Start the game timer in a separate thread
-timer_thread = threading.Thread(target=game_timer)
-timer_thread.start()
-
-# Run the bot
+#chạy bot.polling()
 bot.polling()
