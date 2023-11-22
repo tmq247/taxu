@@ -181,7 +181,9 @@ load_balance_from_file()
 def check_balance(msg):
   user_id = msg.from_user.id
   balance = user_balance.get(user_id, 0)
+  photo_link = "https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/374564260_311252494902338_4501893302206805342_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=49d041&_nc_ohc=ypCR3gJKO84AX8vBaGO&_nc_oc=AQkV2yigf-t0BVkyWvCT0B1QFbLFdXx-cDg9Lal65LdSPI_AvgJdmKKS0ZpvItzfP3rlfqLxFP3pFitVvMbCHjGI&_nc_ht=scontent.fdad1-4.fna&oh=00_AfCW5YKUPRq6IRYMDCqhbPKQYFlUoIbVsuCjDAmzsr50VA&oe=64F55781"  # Thay thế bằng đường dẫn URL của hình ảnh
   bot.send_photo(msg.chat.id,
+                 photo_link,
                  caption=f"""
 👤 <b>Số điểm của</b>: <code>{msg.from_user.first_name} là >💰{balance:,} điểm</code>
         """,
