@@ -62,7 +62,7 @@ def load_balance_from_file():
 
 # Function to confirm the bet and check user balance
 def confirm_bet(user_id, bet_type, bet_amount, msg):
-    user_id = msg.from_user.id 
+    user_id = msg.from_user.first_name 
     if bet_type == 'T':
         cua_cuoc = '🔵Tài'
     else:
