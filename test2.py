@@ -61,13 +61,12 @@ def load_balance_from_file():
 
 
 # Function to confirm the bet and check user balance
-def confirm_bet(user_id, bet_type, bet_amount, msg):
-    user_id = msg.from_user.first_name 
+def confirm_bet(user_id, bet_type, bet_amount, ten_ncuoc):
     if bet_type == 'T':
         cua_cuoc = '🔵Tài'
     else:
         cua_cuoc = '🔴Xỉu'
-    bot.send_message(group_chat_id, f"{msg.from_user.first_name} đã cược {cua_cuoc} {bet_amount} điểm")
+    bot.send_message(group_chat_id, f"{ten_ncuoc} đã cược {cua_cuoc} {bet_amount} điểm")
     
     # Check if the user_id is present in user_balance dictionary
     if user_id in user_balance:
@@ -157,6 +156,7 @@ def handle_message(message,
         # Check if the message is a valid bet
         if message.text and message.text.upper() in ['/T ALL', '/X ALL'] or (message.text and message.text.upper()[1] in ['T', 'X'] and message.text[3:].isdigit()):
             user_id = message.from_user.id
+            ten_ ncuoc = msg.from_user.first_name
             bet_type = message.text.upper()[1]
             if message.text.upper() == '/T ALL' or message.text.upper() == '/X ALL':
                 bet_amount = user_balance.get(user_id, 0)  # Use the entire balance
