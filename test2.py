@@ -63,6 +63,7 @@ def load_balance_from_file():
 
 # Function to confirm the bet and check user balance
 def confirm_bet(user_id, bet_type, bet_amount, ten_ncuoc):
+    balance = user_balance.get(user_id, 0)
     if bet_type == 'T':
         cua_cuoc = '🔵Tài'
     else:
@@ -72,7 +73,7 @@ def confirm_bet(user_id, bet_type, bet_amount, ten_ncuoc):
     # Check if the user_id is present in user_balance dictionary
     if user_id in user_balance:
         # Check user balance
-        if user_balance[user_id] >= bet_amount:
+        if balance >= bet_amount:
             user_bets[user_id] = {'T': 0, 'X': 0}  # Initialize the user's bets if not already present
             user_bets[user_id][bet_type] += bet_amount
             #user_balance[user_id] -= bet_amount
