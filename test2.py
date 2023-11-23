@@ -156,6 +156,7 @@ def handle_message(message,
                    total_bet_T = sum([user_bets[user_id]['T'] for user_id in user_bets]), 
                    total_bet_X = sum([user_bets[user_id]['X'] for user_id in user_bets])
                    ):
+    load_balance_from_file()
     chat_id = message.chat.id
 
     # Check if the message is from the group chat
