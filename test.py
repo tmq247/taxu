@@ -112,12 +112,12 @@ def remove_gitcode(gitcode):
 read_gitcodes()
 
 # Define the admin's user ID
-admin_user_id = 6337933296, 6630692765 # Replace with the actual admin user ID
+admin_user_id = 6337933296  # Replace with the actual admin user ID
 
 @bot.message_handler(commands=['regcode'])
 def create_gitcode_handler(message):
     # Check if the user is the admin
-    if message.from_user.id == 6337933296 or 6630692765:
+    if message.from_user.id == 6337933296:
         bot.reply_to(message, "Vui lòng nhập số tiền cho gitcode:")
         bot.register_next_step_handler(message, process_gitcode_amount)
     else:
@@ -138,6 +138,7 @@ def naptien_gitcode(message):
     bot.register_next_step_handler(message, process_naptien_gitcode)
 
 def process_naptien_gitcode(message):
+    load_balance_from_file()
     gitcode = message.text
     user_id = message.from_user.id  # Get the user's ID
     if gitcode in gitcode_amounts:
@@ -158,6 +159,7 @@ User: {user_id}
 Đã Nạp: {amount:,}đ bằng Gitcode.""")
         # Save the updated balance to the file
         save_balance_to_file()
+        load_balance_from_file()
     else:
         bot.reply_to(message, "Gitcode không hợp lệ hoặc đã được sử dụng.")
 
@@ -217,6 +219,7 @@ def deduct_balance(sender_id, recipient_id, amount):
 
 @bot.message_handler(commands=['chuyentien'])
 def chuyentien_money(message):
+    load_balance_from_file()
     try:
         # Parse thông tin người dùng và số tiền từ tin nhắn
         user_id, amount = map(int, message.text.split()[1:3])
@@ -247,7 +250,6 @@ VD: /chuyentien 987654321 10000""")
 
 @bot.message_handler(commands=["ctien"])
 def set_balance(msg):
-    #admin = 
   if msg.from_user.id == 6337933296 or 6630692765 or 5838967403:
     bot.reply_to(msg, """
 🔭Nhập user ID của thành viên🔨
@@ -276,6 +278,7 @@ def set_user_balance(msg):
 @bot.message_handler(func=lambda message: message.from_user.id in user_state
                      and user_state[message.from_user.id][1] == "setbalance")
 def update_balance(msg):
+  load_balance_from_file()
   try:
     user_input = msg.text.split()
     if len(user_input) < 2:
@@ -289,6 +292,7 @@ def update_balance(msg):
     user_balance[user_id] = new_balance
     del user_state[msg.from_user.id]
     save_balance_to_file()
+    load_balance_from_file()
 
     # Lấy nội dung từ tin nhắn của người chơi
     user_message = " ".join(user_input[1:])
@@ -675,7 +679,7 @@ def process_baucua_bet_item(msg):
     win_amount = 0
     for item in dice_results:
       if item == chosen_item:
-        win_amount += bet_amount * 1.9
+        win_amount += bet_amount * 1.96
 
     if win_amount > 0:
       result_message = f"""
@@ -1021,18 +1025,17 @@ def handle_naptien_gitcode_button(msg):
 
 # Hàm kiểm tra số dư
 def check_balance(msg):
-    user_id = msg.from_user.id
-    balance = user_balance.get(user_id, 0)
-    bot.send_message(msg.from_user.id, f"👤 Số điểm của {msg.from_user.first_name} là {balance:,} điểm 💰")
-  #photo_link = "https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/374564260_311252494902338_4501893302206805342_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=49d041&_nc_ohc=ypCR3gJKO84AX8vBaGO&_nc_oc=AQkV2yigf-t0BVkyWvCT0B1QFbLFdXx-cDg9Lal65LdSPI_AvgJdmKKS0ZpvItzfP3rlfqLxFP3pFitVvMbCHjGI&_nc_ht=scontent.fdad1-4.fna&oh=00_AfCW5YKUPRq6IRYMDCqhbPKQYFlUoIbVsuCjDAmzsr50VA&oe=64F55781"  # Thay thế bằng đường dẫn URL của hình ảnh
-  #bot.send_photo(msg.chat.id,
-  #               photo_link,
-  #               caption=f"""
-#👤 <b>Tên tài khoản</b>: <code>{msg.from_user.first_name}</code>
-#💳 <b>ID Tài khoản</b>: <code>{msg.from_user.id}</code>
-#💰 <b>Số dư của bạn</b>: {balance:,} đ
-#        """,
-#                 parse_mode='HTML')
+  user_id = msg.from_user.id
+  balance = user_balance.get(user_id, 0)
+  photo_link = "https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/374564260_311252494902338_4501893302206805342_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=49d041&_nc_ohc=ypCR3gJKO84AX8vBaGO&_nc_oc=AQkV2yigf-t0BVkyWvCT0B1QFbLFdXx-cDg9Lal65LdSPI_AvgJdmKKS0ZpvItzfP3rlfqLxFP3pFitVvMbCHjGI&_nc_ht=scontent.fdad1-4.fna&oh=00_AfCW5YKUPRq6IRYMDCqhbPKQYFlUoIbVsuCjDAmzsr50VA&oe=64F55781"  # Thay thế bằng đường dẫn URL của hình ảnh
+  bot.send_photo(msg.chat.id,
+                 photo_link,
+                 caption=f"""
+👤 <b>Tên tài khoản</b>: <code>{msg.from_user.first_name}</code>
+💳 <b>ID Tài khoản</b>: <code>{msg.from_user.id}</code>
+💰 <b>Số dư của bạn</b>: {balance:,} đ
+        """,
+                 parse_mode='HTML')
 
 
 #hàm rút tiền
@@ -1238,16 +1241,16 @@ def show_game_options(msg):
 # Hàm lệnh nạp tiền
 def deposit_info(msg):
   user_id = msg.from_user.id
-  momo_account = "0123456789"
+  momo_account = "0345550985"
   username = msg.from_user.username or msg.from_user.first_name
 
-  #photo_link = "https://scontent.fdad1-3.fna.fbcdn.net/v/t39.30808-6/368953112_304417105585877_8104665371433145272_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=730e14&_nc_ohc=9tNmHpvwO7UAX97Ml6f&_nc_ht=scontent.fdad1-3.fna&oh=00_AfDCHSKEY4xF2TL3e4YhEjvP0kh4uVR_4cEPa_GyN5hzXA&oe=64E49255"  # Replace with the actual image link
+  photo_link = "https://scontent.fdad1-3.fna.fbcdn.net/v/t39.30808-6/368953112_304417105585877_8104665371433145272_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=730e14&_nc_ohc=9tNmHpvwO7UAX97Ml6f&_nc_ht=scontent.fdad1-3.fna&oh=00_AfDCHSKEY4xF2TL3e4YhEjvP0kh4uVR_4cEPa_GyN5hzXA&oe=64E49255"  # Replace with the actual image link
 
   # Creating the caption
   caption = f"""
 🏧<b>Phương Thức Nạp Bank</b>🏧
 💰<b>MB BANK _ MOMO</b>💰
-🔊Tài Khoản: <code>0123456789</code>🔚
+🔊Tài Khoản: <code>0345550985</code>🔚
 🔊Nội Dung: <code>naptien_{msg.from_user.id}</code>🔚
 🔊<b>Min Nạp: 10.000k Min Rút: 100.000k</b>
 🔊<b>Min Nạp: 10.000 - 3.000.000</b>🔚
@@ -1258,7 +1261,7 @@ def deposit_info(msg):
 
   # Sending the caption and photo
   bot.send_message(msg.chat.id, caption, parse_mode='HTML')
-  #bot.send_photo(msg.chat.id, photo_link)
+  bot.send_photo(msg.chat.id, photo_link)
 
 
 # Hàm xem lịch sử cược
@@ -1268,7 +1271,7 @@ def show_bet_history(msg):
   if not bet_history:
     bot.reply_to(
         msg, """
-⏩Bạn Vào @☑️.
+⏩Bạn Vào @cltxuytin☑️.
 ⏩Để Kiểm Tra Lịch Sử Cược Nhé.
         """)
   else:
@@ -1350,20 +1353,20 @@ def create_game_options():
   return markup
 
 
-#@bot.message_handler(commands=["game"])
-#def show_game_options(msg):
+@bot.message_handler(commands=["game"])
+def show_game_options(msg):
   # Replace 'https://example.com/image_link.png' with the actual image link
-  #photo_link = 'https://scontent.fdad2-1.fna.fbcdn.net/v/t39.30808-6/365194258_254046207437295_6572100925029769094_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=730e14&_nc_ohc=ph-GKBaIAOAAX8D2f6F&_nc_ht=scontent.fdad2-1.fna&oh=00_AfCRKYNL5z_2j97Uh1P2bdL3A2Z6Zy3rnvjGN6cIiTA4Vg&oe=64D4C9B7'
+  photo_link = 'https://scontent.fdad2-1.fna.fbcdn.net/v/t39.30808-6/365194258_254046207437295_6572100925029769094_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=730e14&_nc_ohc=ph-GKBaIAOAAX8D2f6F&_nc_ht=scontent.fdad2-1.fna&oh=00_AfCRKYNL5z_2j97Uh1P2bdL3A2Z6Zy3rnvjGN6cIiTA4Vg&oe=64D4C9B7'
 
   # Send the photo with the caption
-  #bot.send_photo(msg.chat.id,
-                 #photo_link,
-                 #caption="""
-#<b>𝐕𝐈𝐒𝐓𝐎𝐑𝐘_𝐒𝐚̂𝐧 𝐂𝐡𝐨̛𝐢 𝐂𝐋𝐓𝐗</b>
-#<b>♻️Hãy Chọn Các Game Phía Dưới Nhé♻️</b>
-        #""",
-                 #reply_markup=create_game_options(),
-                 #parse_mode='HTML')
+  bot.send_photo(msg.chat.id,
+                 photo_link,
+                 caption="""
+<b>𝐕𝐈𝐒𝐓𝐎𝐑𝐘_𝐒𝐚̂𝐧 𝐂𝐡𝐨̛𝐢 𝐂𝐋𝐓𝐗</b>
+<b>♻️Hãy Chọn Các Game Phía Dưới Nhé♻️</b>
+        """,
+                 reply_markup=create_game_options(),
+                 parse_mode='HTML')
 
 
 # Modify the game_callback function to use Reply Keyboard
