@@ -247,7 +247,8 @@ VD: /chuyentien 987654321 10000""")
 
 @bot.message_handler(commands=["ctien"])
 def set_balance(msg):
-  if msg.from_user.id == 6337933296 or 6630692765:
+    admin = 6337933296, 6630692765 ,5838967403
+  if msg.from_user.id == admin:
     bot.reply_to(msg, """
 🔭Nhập user ID của thành viên🔨
         """)
@@ -674,7 +675,7 @@ def process_baucua_bet_item(msg):
     win_amount = 0
     for item in dice_results:
       if item == chosen_item:
-        win_amount += bet_amount * 1.96
+        win_amount += bet_amount * 1.9
 
     if win_amount > 0:
       result_message = f"""
