@@ -1022,6 +1022,7 @@ def handle_chuyentien_money_button(msg):
 @bot.message_handler(func=lambda message: message.text == "🫧Nhập CODE💶")
 def handle_naptien_gitcode_button(msg):
     naptien_gitcode(msg)
+    remove_gitcode(gitcode)
 
 # Hàm kiểm tra số dư
 def check_balance(msg):
