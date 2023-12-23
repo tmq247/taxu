@@ -593,7 +593,7 @@ baucua_button = InlineKeyboardButton("🔄 Chơi Lại Bầu Cua Nha 🔄", call
 markup4.add(baucua_button)
 
 # Bầu Cua constants
-BAU_CUA_ITEMS = ["🏮", "🦀", "🦐", "🐟", "🐓", "🦌"]
+BAU_CUA_ITEMS = ["🍐", "🦀", "🦐", "🐟", "🐓", "🦌"]
 # Create a list of image URLs corresponding to the emoji items
 IMAGE_LINKS = [
     "https://scontent.fdad1-3.fna.fbcdn.net/v/t39.30808-6/369199727_306111892083065_3387114729970252090_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_ohc=f6rh_3zQ6rQAX9NhLW5&_nc_ht=scontent.fdad1-3.fna&oh=00_AfAgkh0BsmZ6S5LLhbGxq-fvs6v8qU0S9eQgXB1nJtrF2Q&oe=64E9AD31",
